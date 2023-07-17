@@ -40,7 +40,7 @@ extend type Query {
     # Endpoint query
     # Consider there are huge numbers of endpoint,
     # must use endpoint owner's service id, keyword and limit filter to do query.
-    searchEndpoint(keyword: String!, serviceId: ID!, limit: Int!): [Endpoint!]!
+    searchEndpoint(duration: Duration!, keyword: String!, serviceId: ID!, limit: Int!): [Endpoint!]!
 
     # Database related meta info.
     getAllDatabases(duration: Duration!): [Database!]!
