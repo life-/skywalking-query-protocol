@@ -60,6 +60,7 @@ type ServiceInstance {
     attributes: [Attribute!]!
     language: Language!
     instanceUUID: String!
+    lastPingTimestamp: Long!
 }
 
 type Attribute {

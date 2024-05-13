@@ -17,14 +17,34 @@
 # The list of traces
 type TraceBrief {
     traces: [BasicTrace!]!
+    total: Int!
 }
 
 # Trace basic info
 type BasicTrace {
+    serviceName: String!
     segmentId: String!
     endpointNames: [String!]!
     duration: Int!
     start: String!
+    isError: Boolean
+    traceIds: [String!]!
+}
+
+# The list of trace metrics
+type TraceMetrics {
+    traceMetrics: [TraceBasicMetric!]!
+    total: Int!
+}	
+	
+# Trace basic metric
+type TraceBasicMetric {
+    segmentId: String!
+    endpointNames: [String!]!
+    duration: Int!
+    start: String!
+    parentServerCode: String!
+    serviceInstanceName: String!
     isError: Boolean
     traceIds: [String!]!
 }
@@ -168,8 +188,12 @@ type SpanAttachedEvent {
 }
 
 extend type Query {
+    # Search trace metrics with given conditions
+    queryTraceBasicMetrics(condition: TraceQueryCondition): TraceMetrics
     # Search segment list with given conditions
     queryBasicTraces(condition: TraceQueryCondition): TraceBrief
+    # Search the latest segment with given duration and service name
+    queryServiceLastAccessInfo(duration: Duration!, serviceName: String!): BasicTrace
     # Read the specific trace ID with given trace ID
     queryTrace(traceId: ID!): Trace
     # Read the list of searchable keys
